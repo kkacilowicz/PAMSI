@@ -2,12 +2,24 @@
 //
 
 #include <iostream>
+#include <fstream>
+#include "Trojkat.h"
+
+
+
+using namespace std;
 
 int main()
 {
 
+    Trojkat Tr;
+    double ob;
 
-    std::cout << "Hello World!\n";
+    cin >> Tr.a >>Tr.b >>Tr.c;
+
+    ob = Tr.Obwod(Tr);
+
+    cout << Tr.a << " " << Tr.b << " " << Tr.c << " " << ob;
 }
 
 // Uruchomienie programu: Ctrl + F5 lub menu Debugowanie > Uruchom bez debugowania
