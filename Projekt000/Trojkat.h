@@ -1,8 +1,10 @@
 #pragma once
+#include <string>
 class Trojkat
 {
 public:
 
+	
 	double a;
 	double b;
 	double c;
@@ -10,7 +12,6 @@ public:
 	double Obwod(Trojkat T) {
 		double ob;
 		ob = T.a + T.b + T.c;
-
 		return ob;
 	};
 

@@ -3,24 +3,46 @@
 
 #include <iostream>
 #include <fstream>
+#include <string>
 #include "Trojkat.h"
-
-
-
 using namespace std;
 
 int main()
 {
+    fstream plik;               //plik z ktorego wczytujemy
+    Trojkat Tr;                 //trojkat
+    string dane, nazwa;         //dane wczytywane do strumienia
+    double boki[3];             // do obliczenia obwodu i zapisania w klasie
+    double obwod;               // zapis wartosci obwodu danego trojkata
 
-    Trojkat Tr;
-    double ob;
 
-    cin >> Tr.a >>Tr.b >>Tr.c;
+    plik.open("trojkaty1.txt", ios::in);
+    if (plik.good() == false) { cout << "Nie wczytano"; }
+   
 
-    ob = Tr.Obwod(Tr);
+    while (!plik.eof())
+    {
+        getline(plik, nazwa, ' ');
+       // cout << nazwa << endl;
 
-    cout << Tr.a << " " << Tr.b << " " << Tr.c << " " << ob;
-}
+        
+        for (int i = 0; i < 3; i++)
+        {
+            getline(plik, dane, ' ');
+            boki[i] = atof(dane.c_str()); 
+           // cout << boki[i] << " ";
+            cout << dane << " ";
+        }
+        Tr.a = boki[0];
+        Tr.b = boki[1];
+        Tr.c = boki[2];
+
+       // cout << Tr.Obwod(Tr) << endl;
+       // cout << dane << endl;
+    }
+    plik.close();
+
+    }
 
 // Uruchomienie programu: Ctrl + F5 lub menu Debugowanie > Uruchom bez debugowania
 // Debugowanie programu: F5 lub menu Debugowanie > Rozpocznij debugowanie
