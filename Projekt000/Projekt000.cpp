@@ -22,23 +22,10 @@ int main()
 
     while (!plik.eof())
     {
-        getline(plik, nazwa, ' ');
-       // cout << nazwa << endl;
-
-        
-        for (int i = 0; i < 3; i++)
+        while (plik >> nazwa >> Tr.a >> Tr.b >>Tr.c)
         {
-            getline(plik, dane, ' ');
-            boki[i] = atof(dane.c_str()); 
-           // cout << boki[i] << " ";
-            cout << dane << " ";
+            cout << "Trojkat " << nazwa << " " << Tr.Obwod(Tr) << endl;
         }
-        Tr.a = boki[0];
-        Tr.b = boki[1];
-        Tr.c = boki[2];
-
-       // cout << Tr.Obwod(Tr) << endl;
-       // cout << dane << endl;
     }
     plik.close();
 
