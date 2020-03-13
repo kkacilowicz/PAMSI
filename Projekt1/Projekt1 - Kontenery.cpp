@@ -1,4 +1,4 @@
-﻿// Kontenery.cpp : Ten plik zawiera funkcję „main”. W nim rozpoczyna się i kończy wykonywanie programu.
+﻿// Projekt1 - Kontenery.cpp : Ten plik zawiera funkcję „main”. W nim rozpoczyna się i kończy wykonywanie programu.
 //
 
 #include <iostream>
@@ -115,11 +115,11 @@ int main()
                 if (!s.empty())
                     cout << "Na szczycie stosu znajduje sie: " << s.top() << endl;
                 else
-                    cout << "Stos jest pusty - brak elementu do wyświetlenia" << endl;
+                    cout << "Stos jest pusty - brak elementu do wyswietlenia" << endl;
                 break;
             case 'd':
                 if (!s.empty()) {
-                    cout << "Usunięto ze stosu liczbe " << s.top() << endl;
+                    cout << "Usunieto ze stosu liczbe " << s.top() << endl;
                     s.pop();
                 }
                 else
@@ -184,11 +184,11 @@ int main()
                 break;
             case 'd':
                 if (!q.empty()) {
-                    cout << "Usunięto z poczatku kolejki liczbe " << q.front() << endl;
+                    cout << "Usunieto z poczatku kolejki liczbe " << q.front() << endl;
                     q.pop();
                 }
                 else
-                    cout << "Kolejka jest pusta - brak elementu do wyświetlenia" << endl;
+                    cout << "Kolejka jest pusta - brak elementu do wyswietlenia" << endl;
                 break;
             case 'e':
                 cout << "Ile elementow chcesz usunac?" << endl;
@@ -296,7 +296,7 @@ int main()
                     l.pop_back();
                 }
                 else
-                    cout << "Kolejka jest pusta - brak elementu do wyświetlenia" << endl;
+                    cout << "Kolejka jest pusta - brak elementu do wyswietlenia" << endl;
                 break;
 
             case 'j':
