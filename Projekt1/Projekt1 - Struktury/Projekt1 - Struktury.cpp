@@ -4,6 +4,7 @@
 #include <iostream>
 #include"TabStack.h"
 #include"TabQueue.h"
+#include "SLinkedList.h"
 using namespace std;
 
 //Wyswietlanie menu stosu
@@ -23,7 +24,7 @@ void Menu_Structures() {
     cout << "Menu" << endl;
     cout << "1 - Stos" << endl;
     cout << "2 - Kolejka" << endl;
-    cout << "3 - Lista" << endl;
+    cout << "3 - Lista jednokierunkowa" << endl;
     cout << "4 - Zakoncz" << endl;
 }
 
@@ -40,15 +41,42 @@ void Menu_Queue() {
 
 }
 
+//Wyswietlanie menu listy
+void Menu_List() {
+    cout << "Menu" << endl;
+    cout << "a - Sprawdz czy lista jest pusta" << endl;
+    cout << "b - Dodanie do listy na poczatek" << endl;
+    cout << "c - Dodanie do listy na koniec" << endl;
+    cout << "d - Wstaw element po elemencie z zadanym kluczem" << endl;
+    cout << "e - Usun element z poczatku listy" << endl;
+    cout << "f - Usun element z konca listy" << endl;
+    cout << "g - Usun element z zadanym kluczem" << endl;
+    cout << "h - Wyswietl cala liste" << endl;
+    cout << "i - Wyswietl pierwszy element" << endl;
+    cout << "j - Wyswietl ostatni element" << endl;
+    cout << "k - Zakoncz" << endl;
+
+}
 
 int main()
 {
     TabStack TabSt(5);
     TabQueue TabQu(5);
+    SLinkedList SLL;
+    
+
+
+
+
+
+
     
     char Choice_struct, Choice_function;    //podejmowane decyzje od uzytkownika
     int Element;                            //Element dodawany do struktury
+    int Key;                                //Klucz do obslugi list
 
+
+    
     Menu_Structures();
      cout << "Twoj wybor:" << endl;
      cin >> Choice_struct;
@@ -107,7 +135,7 @@ int main()
         }
     }
     
-    if (Choice_struct=='2')
+    else if (Choice_struct=='2')
     {
         while (1)
         {
@@ -162,4 +190,113 @@ int main()
             }
         }
     }
+    else if (Choice_struct=='3')
+    {
+
+    while (1)
+    {
+        Menu_List();
+        cout << "Twoj wybor:" << endl;
+        cin >> Choice_function;
+        switch (Choice_function)
+        {
+        case 'a':
+            if (!SLL.empty()) {
+                cout << "Lista nie jest pusta" << endl;
+            }
+            else
+                cout << "Lista jest pusta" << endl;
+            break;
+        case 'b':
+
+            cout << "Jaki element chcesz dodac z przodu?" << endl;
+            cin >> Element;
+            SLL.addFront(Element);
+            cout << "Dodano na poczatek listy liczbe " << SLL.front() << endl;
+            break;
+
+
+        case 'c':
+
+            cout << "Jaki element chcesz dodac na koniec listy?" << endl;
+            cin >> Element;
+            SLL.addRear(Element);
+            cout << "Dodano na koniec listy liczbe " << SLL.rear() << endl;
+            break;
+
+        case 'd':
+
+            cout << "Jaki element chcesz dodac do listy?" << endl;
+            cin >> Element;
+            cout << "Podaj klucz do elementu za ktorym chcesz wstawic nowy" << endl;
+            cin >> Key;
+            SLL.addAfterKey(Element,Key);
+            break;
+
+        case 'e':
+            if (!SLL.empty()) {
+                cout << "Usunieto z poczatku listy liczbe " << SLL.front() << endl;
+                SLL.removeFront();
+            }
+            else
+                cout << "Lista jest pusta - nie mozna nic usunac" << endl;
+            break;
+        case 'f':
+            if (!SLL.empty()) {
+                cout << "Usunieto z konca listy liczbe " << SLL.rear() << endl;
+                SLL.removeRear();
+            }
+            else
+                cout << "Lista jest pusta - nie mozna nic usunac" << endl;
+            break;
+
+
+        case 'g':
+            if (!SLL.empty()) {
+
+                cout << "Podaj klucz do elementu ktory chcesz usunac" << endl;
+                cin >> Key;
+                SLL.removeKey(Key);
+            }
+            else
+                cout << "Lista jest pusta - nie mozna nic usunac" << endl;
+            break;
+        case 'h':
+            if (!SLL.empty())
+                SLL.display();
+            else
+                cout << "Lista jest pusta - brak elementu do wyświetlenia" << endl;
+            break;
+            
+
+        case 'i':
+            if (!SLL.empty())
+                cout << "Na poczatku listy znajduje sie: " << SLL.front() << endl;
+            else
+                cout << "Lista jest pusta - brak elementu do wyświetlenia" << endl;
+            break;
+
+        case 'j':
+            if (!SLL.empty())
+                cout << "Na koncu listy znajduje sie: " << SLL.rear() << endl;
+            else
+                cout << "Lista jest pusta - brak elementu do wyświetlenia" << endl;
+            break;
+
+        case 'k':
+            cout << "KONIEC" << endl;
+            return 0;
+
+        default:
+            cout << "Error: Zly wybor funkcji" << endl;
+            cout << "Wpisz litere od a do f, a potem wcisnij ENTER" << endl;
+
+            return 0;
+        }
+    }
+    
+    
+
+    }
+    
 }
