@@ -5,6 +5,7 @@
 #include"TabStack.h"
 #include"TabQueue.h"
 #include "SLinkedList.h"
+#include "DLinkedList.h"
 using namespace std;
 
 //Wyswietlanie menu stosu
@@ -25,7 +26,8 @@ void Menu_Structures() {
     cout << "1 - Stos" << endl;
     cout << "2 - Kolejka" << endl;
     cout << "3 - Lista jednokierunkowa" << endl;
-    cout << "4 - Zakoncz" << endl;
+    cout << "4 - Lista dwukierunkowa" << endl;
+    cout << "5 - Zakoncz" << endl;
 }
 
 //Wyswietlanie menu kolejki
@@ -63,18 +65,11 @@ int main()
     TabStack TabSt(5);
     TabQueue TabQu(5);
     SLinkedList SLL;
-    
-
-
-
-
-
-
+    DLinkedList DLL;
     
     char Choice_struct, Choice_function;    //podejmowane decyzje od uzytkownika
     int Element;                            //Element dodawany do struktury
     int Key;                                //Klucz do obslugi list
-
 
     
     Menu_Structures();
@@ -298,5 +293,112 @@ int main()
     
 
     }
-    
+    else if (Choice_struct == '4')
+    {
+    while (1)
+    {
+        Menu_List();
+        cout << "Twoj wybor:" << endl;
+        cin >> Choice_function;
+        switch (Choice_function)
+        {
+        case 'a':
+            if (!DLL.empty()) {
+                cout << "Lista nie jest pusta" << endl;
+            }
+            else
+                cout << "Lista jest pusta" << endl;
+            break;
+        case 'b':
+
+            cout << "Jaki element chcesz dodac z przodu?" << endl;
+            cin >> Element;
+            DLL.addFront(Element);
+            cout << "Dodano na poczatek listy liczbe " << DLL.front() << endl;
+            break;
+
+
+        case 'c':
+
+            cout << "Jaki element chcesz dodac na koniec listy?" << endl;
+            cin >> Element;
+            DLL.addRear(Element);
+            cout << "Dodano na koniec listy liczbe " << DLL.rear() << endl;
+            break;
+
+        case 'd':
+
+            cout << "Jaki element chcesz dodac do listy?" << endl;
+            cin >> Element;
+            cout << "Podaj klucz do elementu za ktorym chcesz wstawic nowy" << endl;
+            cin >> Key;
+            DLL.addAfterKey(Element, Key);
+            break;
+
+        case 'e':
+            if (!DLL.empty()) {
+                cout << "Usunieto z poczatku listy liczbe " << DLL.front() << endl;
+                DLL.removeFront();
+            }
+            else
+                cout << "Lista jest pusta - nie mozna nic usunac" << endl;
+            break;
+        case 'f':
+            if (!DLL.empty()) {
+                cout << "Usunieto z konca listy liczbe " << DLL.rear() << endl;
+                DLL.removeRear();
+            }
+            else
+                cout << "Lista jest pusta - nie mozna nic usunac" << endl;
+            break;
+
+
+        case 'g':
+            if (!DLL.empty()) {
+
+                cout << "Podaj klucz do elementu ktory chcesz usunac" << endl;
+                cin >> Key;
+                DLL.removeKey(Key);
+            }
+            else
+                cout << "Lista jest pusta - nie mozna nic usunac" << endl;
+            break;
+        case 'h':
+            if (!DLL.empty())
+                DLL.display();
+            else
+                cout << "Lista jest pusta - brak elementu do wyświetlenia" << endl;
+            break;
+
+
+        case 'i':
+            if (!DLL.empty())
+                cout << "Na poczatku listy znajduje sie: " << DLL.front() << endl;
+            else
+                cout << "Lista jest pusta - brak elementu do wyświetlenia" << endl;
+            break;
+
+        case 'j':
+            if (!DLL.empty())
+                cout << "Na koncu listy znajduje sie: " << DLL.rear() << endl;
+            else
+                cout << "Lista jest pusta - brak elementu do wyświetlenia" << endl;
+            break;
+
+        case 'k':
+            cout << "KONIEC" << endl;
+            return 0;
+
+        default:
+            cout << "Error: Zly wybor funkcji" << endl;
+            cout << "Wpisz litere od a do f, a potem wcisnij ENTER" << endl;
+
+            return 0;
+        }
+    }
+
+
+    }
+
+
 }

@@ -147,15 +147,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="DLinkedList.cpp" />
     <ClCompile Include="Projekt1 - Struktury.cpp" />
     <ClCompile Include="SLinkedList.cpp" />
-    <ClCompile Include="SNode.cpp" />
     <ClCompile Include="TabQueue.cpp" />
     <ClCompile Include="TabStack.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DLinkedList.h" />
     <ClInclude Include="SLinkedList.h" />
     <ClInclude Include="SNode.h" />
+    <ClInclude Include="SNode2.h" />
     <ClInclude Include="TabQueue.h" />
     <ClInclude Include="TabStack.h" />
   </ItemGroup>
