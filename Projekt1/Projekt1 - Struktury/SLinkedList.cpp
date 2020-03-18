@@ -101,14 +101,7 @@ void SLinkedList::display()
 		tmp = tmp->next;
 	}
 	std::cout << std::endl;
-	SNode* tmp2 = head;
-	std::cout << "Klucze: ";
-	for (int j = 0; j < size(); j++)
-	{
-		std::cout << tmp2->key << " ";
-		tmp2 = tmp2->next;
-	}
-	std::cout << std::endl;
+
 }
 
 void SLinkedList::addAfterKey(const int& Element, int Key)

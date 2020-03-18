@@ -71,7 +71,8 @@ int main()
     stack <int> s;
     queue <int> q;
     list <int> l;
-    int Random_Element = 0;                 //do wprowadzania losowych wartosci do struktur
+    int Random_Element = 0;                 //do wprowadzania losowych wartosci do struktur, w progr
+                                            //w programie losowane sa wartosci od 1 do 100, zeby dzialanie bylo bardziej czytelne
     char Choice_struct, Choice_function;    //podejmowane decyzje od uzytkownika
     int How_many;                           //do ilosci powtorzen - np ile elementow ma byc usuniete
 

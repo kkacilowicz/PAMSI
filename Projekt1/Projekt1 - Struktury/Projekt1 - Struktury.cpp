@@ -29,7 +29,8 @@ void Menu_Structures() {
     cout << "2 - Kolejka" << endl;
     cout << "3 - Lista jednokierunkowa" << endl;
     cout << "4 - Lista dwukierunkowa" << endl;
-    cout << "5 - Zakoncz" << endl;
+    cout << "5 - Kopiec" << endl;
+    cout << "6 - Zakoncz" << endl;
 }
 
 //Wyswietlanie menu kolejki
@@ -62,43 +63,26 @@ void Menu_List() {
 
 }
 
+//Wyswietlanie menu kopca
+void Menu_Heap() {
+    cout << "Menu" << endl;
+    cout << "a - Budowa kopca na podstawie n elementow" << endl;
+    cout << "b - Przywracanie wlasnosci kopca" << endl;
+    cout << "c - Dodanie elementu do kopca" << endl;
+    cout << "d - Usuniecie korzenia do kopca" << endl;
+    cout << "e - Wyswietl rozmiar kopca" << endl;
+    cout << "f - Czytelne wyswietlenie elementow kopca" << endl;
+    cout << "g - Zakoncz" << endl;
+}
 int main()
 {
-   // TabStack TabSt(5);
-   // TabQueue TabQu(5);
-   // SLinkedList SLL;
-   // DLinkedList DLL;
-    
-    int SIZE;
-    cin >> SIZE;
-    
-    int* a=new int[SIZE+1];                                   //5 +1 
-    for (int i = 1; i <SIZE+1; i++)
-    {
-        a[i] = i;
-    }
-    cout << endl;
-
+    TabStack TabSt(5);                       
+    TabQueue TabQu(5);
+    SLinkedList SLL;
+    DLinkedList DLL;
+   
+    srand((unsigned)time(0));               //tworzenie wartosci losowych
   
-    Heap Hp(a, SIZE+1);
-    Hp.display();
-    cout << endl;
-    Hp.MaxHeapify(4);
-    Hp.display();
-    cout << endl;
-    Hp.BuildHeap();
-    cout << Hp.size() << endl;
-    Hp.display();
-    Hp.RemoveRoot();
-    Hp.AddElement(69);
-    Hp.display();
-    cout << endl;
-    
-    //srand((unsigned)time(0));               //tworzenie wartosci losowych
-   // Random_Element = (rand() % 100) + 1;
-
-    /*
-
     char Choice_struct, Choice_function;    //podejmowane decyzje od uzytkownika
     int Element;                            //Element dodawany do struktury
     int Key;                                //Klucz do obslugi list
@@ -431,6 +415,92 @@ int main()
 
     
     }
-    */
+    else if (Choice_struct == '5') {
+
+    //Wczytywanie elementow do klasy, ale jeszcze nie budowanie
+
+    int SIZE;
+    cout << "Z ilu elementow ma sie skladac kopiec?" << endl;
+    cout << "Twoj wybor:" << endl;
+    cin >> SIZE;
+    int Random_Element;
+    
+    int* a = new int[SIZE + 1];
+    for (int i = 1; i < SIZE + 1; i++)
+    {
+        Random_Element = rand() + 1;
+        a[i] = Random_Element;
+    }
+    cout << endl;
+    Heap Hp(a, SIZE + 1);
+
+
+    while (1) {
+       
+
+        Menu_Heap();
+        cout << "Twoj wybor:" << endl;
+        cin >> Choice_function;
+        switch (Choice_function)
+        {
+        case 'a':
+            if (!Hp.empty())
+            {
+                Hp.BuildHeap();
+            }
+            else
+            {
+                cout << "Brak elementow z ktorych mozna zbudowac kopiec" << endl;
+            }
+            break;
+
+        case 'b':
+            if (!Hp.empty()) {
+                cout << "Dla ktorego elementu chcesz przywrocic wlasnosc kopca?" << endl;
+                int Which_one;
+                cin >> Which_one;
+                Hp.MaxHeapify(Which_one);
+            }
+            else
+                cout << "Kopiec jest pusty - nie mozna przywrocic wlasnosci kopca" << endl;
+            break;
+        case 'c':
+            cout << "Jaki element chcesz dodac do kopca?" << endl;
+            cin >> Element;
+            Hp.AddElement(Element);
+            break;
+        case 'd':
+            if (!Hp.empty()) {
+                Hp.RemoveRoot();
+            }
+            else
+                cout << "Kopiec jest pusty - nie mozna usunac korzenia" << endl;
+            break;
+        case 'e':
+            cout << "Wielkosc kopca wynosi " << Hp.size() << endl;
+            break;
+        case 'f':
+            Hp.display();
+            cout << endl;
+            break;
+        case 'g':
+            cout << "KONIEC" << endl;
+            return 0;
+        default:
+            cout << "Error: Zly wybor funkcji" << endl;
+            cout << "Wpisz litere od a do g, a potem wcisnij ENTER" << endl;
+
+            return 0;
+        }
+    }
+    }
+    else if (Choice_struct == '6') {
+    cout << "KONIEC" << endl;
+    return 0;
+    }
+    else
+    {
+    cout << "Zly wybor struktury - wybierz liczbe od 1 do 6 " << endl;
+    }
 
 }
