@@ -148,6 +148,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="DLinkedList.cpp" />
+    <ClCompile Include="Heap.cpp" />
     <ClCompile Include="Projekt1 - Struktury.cpp" />
     <ClCompile Include="SLinkedList.cpp" />
     <ClCompile Include="TabQueue.cpp" />
@@ -155,6 +156,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DLinkedList.h" />
+    <ClInclude Include="Heap.h" />
     <ClInclude Include="SLinkedList.h" />
     <ClInclude Include="SNode.h" />
     <ClInclude Include="SNode2.h" />

@@ -2,10 +2,12 @@
 //
 
 #include <iostream>
+#include<ctime>
 #include"TabStack.h"
 #include"TabQueue.h"
 #include "SLinkedList.h"
 #include "DLinkedList.h"
+#include"Heap.h"
 using namespace std;
 
 //Wyswietlanie menu stosu
@@ -62,11 +64,41 @@ void Menu_List() {
 
 int main()
 {
-    TabStack TabSt(5);
-    TabQueue TabQu(5);
-    SLinkedList SLL;
-    DLinkedList DLL;
+   // TabStack TabSt(5);
+   // TabQueue TabQu(5);
+   // SLinkedList SLL;
+   // DLinkedList DLL;
     
+    int SIZE;
+    cin >> SIZE;
+    
+    int* a=new int[SIZE+1];                                   //5 +1 
+    for (int i = 1; i <SIZE+1; i++)
+    {
+        a[i] = i;
+    }
+    cout << endl;
+
+  
+    Heap Hp(a, SIZE+1);
+    Hp.display();
+    cout << endl;
+    Hp.MaxHeapify(4);
+    Hp.display();
+    cout << endl;
+    Hp.BuildHeap();
+    cout << Hp.size() << endl;
+    Hp.display();
+    Hp.RemoveRoot();
+    Hp.AddElement(69);
+    Hp.display();
+    cout << endl;
+    
+    //srand((unsigned)time(0));               //tworzenie wartosci losowych
+   // Random_Element = (rand() % 100) + 1;
+
+    /*
+
     char Choice_struct, Choice_function;    //podejmowane decyzje od uzytkownika
     int Element;                            //Element dodawany do struktury
     int Key;                                //Klucz do obslugi list
@@ -397,8 +429,8 @@ int main()
         }
     }
 
-
+    
     }
-
+    */
 
 }
