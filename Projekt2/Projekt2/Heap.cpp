@@ -60,7 +60,7 @@ void Heap::BuildHeap()
 	}
 }
 
-void Heap::RemoveRoot()
+int Heap::RemoveRoot()
 {
 	if (empty())
 	{
@@ -68,9 +68,11 @@ void Heap::RemoveRoot()
 	}
 	else
 	{
+		int i = H[1];
 		swap(&H[1], &H[size()]);
 		size_counter--;
 		MaxHeapify(1);
+		return i;
 	}
 }
 

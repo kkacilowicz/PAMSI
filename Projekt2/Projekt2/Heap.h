@@ -26,7 +26,7 @@ public:
 	void MaxHeapify(int i);							//przywracanie wlasnosci kopca
 	void display();									//czytelne wyswietlenie kopca
 	void BuildHeap();								//budowanie kopca
-	void RemoveRoot();								//usun korzen z kopca
+	int RemoveRoot();								//usun korzen z kopca
 	void AddElement(int Element);					//dodaj element do kopca
 	void uppheap(int i);							//przywracanie wlasnosci kopca w gore
 };
