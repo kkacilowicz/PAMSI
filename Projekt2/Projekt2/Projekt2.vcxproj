@@ -149,12 +149,9 @@
   <ItemGroup>
     <ClCompile Include="Heap.cpp" />
     <ClCompile Include="Projekt2.cpp" />
-    <ClCompile Include="SLinkedList.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Heap.h" />
-    <ClInclude Include="SLinkedList.h" />
-    <ClInclude Include="SNode.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

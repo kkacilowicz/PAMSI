@@ -35,6 +35,9 @@ void Heap::MaxHeapify(int i)
 	
 }
 
+
+
+
 void Heap::display()
 {
 	int lvl=1;
@@ -51,6 +54,22 @@ void Heap::display()
 	}
 }
 
+void Heap::display(int* data)
+{
+	int lvl = 1;
+
+	for (int i = 1; i < size() + 1; i++)
+	{
+		std::cout << data[i] << " ";
+
+		if (i == (pow(2, lvl) - 1))
+		{
+			std::cout << std::endl;
+			lvl++;
+		}
+	}
+}
+
 void Heap::BuildHeap()
 {
 	int v = capacity; 
@@ -59,6 +78,17 @@ void Heap::BuildHeap()
 		v = v--;
 	}
 }
+
+void Heap::BuildHeap(int* data, int Size)
+{
+	int i = 1;
+	while (i <= Size)
+	{
+		upheap(data, i);
+		++i;
+	}
+}
+
 
 int Heap::RemoveRoot()
 {
@@ -76,6 +106,8 @@ int Heap::RemoveRoot()
 	}
 }
 
+
+
 void Heap::AddElement(int Element)
 {
 	if (size()==capacity)
@@ -86,11 +118,11 @@ void Heap::AddElement(int Element)
 	{
 		size_counter++;
 		H[size()] = Element;
-		uppheap(size());
+		upheap(size());
 	}
 }
 
-void Heap::uppheap(int i)
+void Heap::upheap(int i)
 {
 	while (i>1 && H[Parent(i)]<H[i])
 	{
@@ -99,5 +131,44 @@ void Heap::uppheap(int i)
 	}
 }
 
+
+
+
+void Heap::upheap(int tab[], int last)
+{
+	int i = last;
+	if (i == 1)
+		++i;
+	while (i > 1)
+	{
+		if (tab[i] >= tab[Parent(i)])
+			swap(&tab[i], &tab[Parent(i)]);
+		i = Parent(i);
+	}
+
+}
+
+
+void Heap::downheap(int tab[], int size, int i)
+{
+	int left = LeftSon(i);
+	int right = RightSon(i);
+	int largest;
+
+	if (left <= size && tab[left] > tab[i])
+		largest = left;
+	else
+		largest = i;
+
+	if (right <= size && tab[right] > tab[largest])
+		largest = right;
+
+	if (largest != i && largest <= size)
+	{
+		swap(&tab[i], &tab[largest]);
+		downheap(tab, size, largest);
+	}
+
+}
 
 

@@ -17,6 +17,11 @@ public:
 		}
 		size_counter = capacity-1;
 	}
+	Heap(int cap) {
+		H = 0;
+		capacity = cap;
+		size_counter = capacity;
+	}
 	~Heap() { delete[] H; }
 	bool empty() { return size()==0; };
 	int size() { return size_counter; } ;			//okreslanie wielkosci kopca
@@ -25,9 +30,13 @@ public:
 	int RightSon(int i) { return (2 * i) + 1; }		//zwraca prawego syna
 	void MaxHeapify(int i);							//przywracanie wlasnosci kopca
 	void display();									//czytelne wyswietlenie kopca
+	void display(int* data);						//wyswietlenie tablicy jako kopiec
 	void BuildHeap();								//budowanie kopca
+	void BuildHeap(int* data, int Size);			//budowanie kopca z zadanej tablicy i rozmiaru
 	int RemoveRoot();								//usun korzen z kopca
 	void AddElement(int Element);					//dodaj element do kopca
-	void uppheap(int i);							//przywracanie wlasnosci kopca w gore
+	void upheap(int i);								//przywracanie wlasnosci kopca w gore
+	void upheap(int tab[], int last);				//przywracanie wlasnosci kopca w gore
+	void downheap(int tab[], int size, int i);		//przywracanie wlasnosci kopca w dol
 };
 
