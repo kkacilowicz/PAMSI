@@ -36,7 +36,7 @@ public:
 	int RemoveRoot();								//usun korzen z kopca
 	void AddElement(int Element);					//dodaj element do kopca
 	void upheap(int i);								//przywracanie wlasnosci kopca w gore
-	void upheap(int tab[], int last);				//przywracanie wlasnosci kopca w gore
-	void downheap(int tab[], int size, int i);		//przywracanie wlasnosci kopca w dol
+	void upheap(int *data, int last);				//przywracanie wlasnosci kopca w gore
+	void downheap(int *data, int size, int i);		//przywracanie wlasnosci kopca w dol
 };
 

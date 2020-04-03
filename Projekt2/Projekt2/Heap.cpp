@@ -95,6 +95,7 @@ int Heap::RemoveRoot()
 	if (empty())
 	{
 		std::cout << "Kopiec pusty - nie mo¿na nic usunac" << std::endl;
+		return 0;
 	}
 	else
 	{
@@ -134,39 +135,39 @@ void Heap::upheap(int i)
 
 
 
-void Heap::upheap(int tab[], int last)
+void Heap::upheap(int *data, int last)
 {
 	int i = last;
 	if (i == 1)
 		++i;
 	while (i > 1)
 	{
-		if (tab[i] >= tab[Parent(i)])
-			swap(&tab[i], &tab[Parent(i)]);
+		if (data[i] >= data[Parent(i)])
+			swap(&data[i], &data[Parent(i)]);
 		i = Parent(i);
 	}
 
 }
 
 
-void Heap::downheap(int tab[], int size, int i)
+void Heap::downheap(int *data, int size, int i)
 {
 	int left = LeftSon(i);
 	int right = RightSon(i);
 	int largest;
 
-	if (left <= size && tab[left] > tab[i])
+	if (left <= size && data[left] > data[i])
 		largest = left;
 	else
 		largest = i;
 
-	if (right <= size && tab[right] > tab[largest])
+	if (right <= size && data[right] > data[largest])
 		largest = right;
 
 	if (largest != i && largest <= size)
 	{
-		swap(&tab[i], &tab[largest]);
-		downheap(tab, size, largest);
+		swap(&data[i], &data[largest]);
+		downheap(data, size, largest);
 	}
 
 }
