@@ -8,6 +8,12 @@ class Edge
 	Vertex* target;											//wezel do wierzcholka do ktorej wchodzi
 	friend class AdjacencyList;
 public:
+	Edge() {
+		next = nullptr;
+		source = nullptr;
+		target = nullptr;
+		weight = 0;
+	}
 	int getWeight() { return weight; }
 	Edge* getNext() { return next; }
 	Vertex* getSource() { return source; }

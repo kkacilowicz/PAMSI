@@ -3,24 +3,31 @@
 #include <cstddef>
 class AdjacencyList
 {
-	Edge* headEdge;							//do listy krawêdzi
+	Edge** ListofEdges;						//lista krawêdzi
+	Vertex** ListofIncidence;				//lista incydencji (wierzcho³ki, które siê spotykaj¹)
+	Edge* headEdge;
 	Vertex* headVertex;						//do listy wierzcho³ków
 	int nbofEdges;							//liczba krawêdzi
 	int nbofVertices;						//liczba wierzcho³ków
 public:
-	AdjacencyList() {
+	AdjacencyList(int vertices) {
+		ListofEdges = new Edge * [vertices];
+		for (int i = 0; i < vertices; i++)
+		{
+			ListofEdges[i] = NULL;
+		}
+		ListofIncidence = new Vertex * [vertices];
+		for (int i = 0; i < vertices; i++)
+		{
+			ListofIncidence[i] = NULL;
+		}
 		headEdge = NULL;
 		headVertex = NULL;
 		nbofEdges = 0;
-		nbofVertices = 0;
+		nbofVertices = vertices;
 	}
+	/*
 	~AdjacencyList() {
-		for (int i = 0; i < nbofEdges; i++)
-		{
-			Edge* old = headEdge;
-			headEdge = old->next;
-			delete old;
-		}
 		for (int i = 0; i < nbofVertices; i++)
 		{
 			Vertex* old = headVertex;
@@ -29,17 +36,22 @@ public:
 		}
 
 	}
+	*/
 	Vertex* endVertices(Edge E);
-	Vertex* opposite(Vertex V, Edge E);
-	//areAdjacent(Vertex V, Vertex W);
-	//replace(Vertex V, int x);
-	//replace(Edge E, int NewWeight);
-	//insertVertex(int value);
-	//insertEdge(Vertex source, Vertex target, int Weight);
-	//removeVertex(Vertex V); //usun¹æ te¿ krawêdzie z nim zwi¹zane
-	//removeEdge(Edge E);
-	//incidentEdges(Vertex V);
-	//vertices();
-	//edges();
+	Vertex* opposite(Vertex *V, Edge *E);
+	//bool areAdjacent(Vertex V, Vertex W);
+	void replace(Vertex V, int NewValue) { V.setValue(NewValue); }
+	void replace(Edge E, int NewWeight) { E.setWeight(NewWeight); }
+	Vertex* insertVertex(int value);									//dodaje na pocz¹tek listy wierzcho³ków
+	void insertEdge(Vertex* source, Vertex* target, int Weight);
+	//void removeVertex(Vertex V); //usun¹æ te¿ krawêdzie z nim zwi¹zane
+	//void removeEdge(Edge E);
+	Edge* incidentEdges(Vertex *V);
+	int vertices() { return nbofVertices; }
+	int edges() { return nbofEdges; }
+	void displayVertices();
+	void displayEdges();
+	void displayIncidentEdges(int value);
+	void test(Vertex *V);
 };
 
