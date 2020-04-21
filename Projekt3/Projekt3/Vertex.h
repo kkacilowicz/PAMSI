@@ -4,6 +4,7 @@ class Vertex
 	int value;									//wartoœæ wierzcho³ka
 	Vertex* next;								//wêze³ do nastêpnego wierzcho³ka w liœcie
 	friend class AdjacencyList;
+	friend class AdjacencyMatrix;
 public:
 	Vertex() {
 		value = -1;

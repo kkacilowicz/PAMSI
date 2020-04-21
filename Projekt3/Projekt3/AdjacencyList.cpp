@@ -23,16 +23,45 @@ Vertex* AdjacencyList::opposite(Vertex *V, Edge *E)
 	}
 }
 
+bool AdjacencyList::areAdjacent(Vertex *V, Vertex *W)
+{
+	int index = V->getValue();
+	Edge* tmp = ListofEdges[index];
+	int found = -1;
+	while (tmp)
+	{
+		if (tmp->getSource()->getValue() == W->getValue()) {
+			found = tmp->getSource()->getValue();
+			return true;
+		}
+		if (tmp->getTarget()->getValue() == W->getValue()) {
+			found = tmp->getSource()->getValue();
+			return true;
+		}
+
+		tmp = tmp->next;
+	}
+
+	return false;
+}
+
 //tutaj trzeba jeszcze te funkcjonalnosc z powiekszaniem tablicy
-/*************************************************************to do poprawy****************************************************************/
 Vertex* AdjacencyList::insertVertex(int value)
 {
-
+	if (headVertex == NULL) {
 		Vertex* V = new Vertex;
 		V->setValue(value);
 		V->setNext(headVertex);
 		headVertex = V;
-	
+	}
+	else if (headVertex->getValue()!=value)
+	{
+		Vertex* V = new Vertex;
+		V->setValue(value);
+		V->setNext(headVertex);
+		headVertex = V;
+	}
+
 	return headVertex;
 }
 
@@ -70,13 +99,6 @@ Edge* AdjacencyList::incidentEdges(Vertex* V)
 	int index = V->getValue();
 	Edge* tmp = ListofEdges[index];
 
-	while (tmp)
-	{
-		std::cout << "Source " << tmp->getSource()->getValue() << "Target " << tmp->getTarget()->getValue()
-			<< "Weight " << tmp->getWeight() << std::endl;
-		tmp = tmp->next;
-	}
-
 	return tmp;
 }
 
@@ -86,8 +108,8 @@ void AdjacencyList::displayVertices()
 {
 
 	Vertex* tmp = headVertex;
-	std::cout << "Elementy listy: ";
-	for (int i = 0; i < vertices(); i++)
+	std::cout << "Wierzcholki: " <<std::endl;
+	while (tmp)
 	{
 		std::cout << tmp->getValue() << " ";
 		tmp = tmp->next;
@@ -99,9 +121,8 @@ void AdjacencyList::displayEdges()
 {
 	Edge* tmp =headEdge;
 	std::cout << "Krawedzie:" << std::endl;
-	for (int i = 0; i < edges(); i++)
+	while (tmp)
 	{
-		
 		std::cout << "Source " << tmp->getSource()->getValue() << "Target " << tmp->getTarget()->getValue()
 			<< "Weight " << tmp->getWeight() << std::endl;
 		tmp = tmp->next;

@@ -5,6 +5,7 @@
 #include <ctime>
 #include"PriorityQueue.h"
 #include "AdjacencyList.h"
+#include"AdjacencyMatrix.h"
 
 using namespace std;
 
@@ -26,9 +27,8 @@ int main()
 
 
 
-
-	V->setValue(0);
-	V1->setValue(1);
+	
+	
 	V2->setValue(2);
 	V3->setValue(3);
 	V4->setValue(4);
@@ -38,16 +38,23 @@ int main()
 	V8->setValue(8);
 	V9->setValue(9);
 	V10->setValue(10);
+	
 	AdjacencyList AL(10);
+	AdjacencyMatrix AM(10);
 
-	AL.insertVertex(0);
-
+	V = AM.insertVertex(0);
+	V1 = AM.insertVertex(1);
 	AL.insertEdge(V, V1, 0);
-	AL.insertEdge(V2, V1, 1);
-	AL.insertEdge(V4, V5, 2);
-
 	AL.displayEdges();
+	AL.displayVertices();
 	cout << endl;
-	AL.incidentEdges(V);
+
+
+	AM.displayVertices();
+	AM.insertEdge(V, V1, 0);
+	AM.insertEdge(V, V2, 1);
+	AM.insertEdge(V, V3, 2);
+	AM.displayEdges();
+	AM.displayIncidentEdges(0);
 }
 

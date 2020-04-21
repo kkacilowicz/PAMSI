@@ -1,20 +1,25 @@
 #pragma once
 #include "Edge.h"
 #include <cstddef>
-#include<iostream>
-class AdjacencyList
+/*Implementacja macierzy s¹siedztwa dla grafu nieskierowanego*/
+class AdjacencyMatrix
 {
-	Edge** ListofEdges;						//lista krawêdzi, która zawiera informacje o incydencjach
-	Edge* headEdge;
-	Vertex* headVertex;						//do listy wierzcho³ków
+	Vertex* headVertex;						//lista wierzcho³ków
+	Edge*  headEdge;						//lista krawêdzi
+	Edge*** MatrixEdge;
 	int nbofEdges;							//liczba krawêdzi
 	int nbofVertices;						//liczba wierzcho³ków
 public:
-	AdjacencyList(int vertices) {
-		ListofEdges = new Edge * [vertices];
+	AdjacencyMatrix(int vertices) {
+		MatrixEdge = new Edge ** [vertices];
 		for (int i = 0; i < vertices; i++)
 		{
-			ListofEdges[i] = NULL;
+			MatrixEdge[i] = new Edge * [vertices];
+
+			for (int j = 0; j < vertices; j++)
+			{
+				MatrixEdge[i][j] = NULL;
+			}
 		}
 		headEdge = NULL;
 		headVertex = NULL;
@@ -22,7 +27,7 @@ public:
 		nbofVertices = vertices;
 	}
 	/*
-	~AdjacencyList() {
+	~AdjacencyMatrix() {
 
 		Vertex* tmp = headVertex;
 		while (tmp)
@@ -41,26 +46,31 @@ public:
 			delete old;
 			tmp1 = tmp1->next;
 		}
-		
+
+
+
 		for (int i = 0; i < nbofVertices; ++i) {
-			delete[] ListofEdges[i];
+			delete[] MatrixEdge[i];
 		}
-		delete[] ListofEdges;
+		delete[]MatrixEdge;
+		
 	}
 	*/
 	Vertex* endVertices(Edge E);
-	Vertex* opposite(Vertex *V, Edge *E);
-	bool areAdjacent(Vertex *V, Vertex *W);
-	void replace(Vertex V, int NewValue) { V.setValue(NewValue); }
-	void replace(Edge E, int NewWeight) { E.setWeight(NewWeight); }
+	Vertex* opposite(Vertex* V, Edge* E);
+	bool areAdjacent(Vertex* V, Vertex* W);
+	void replace(Vertex *V, int NewValue) { V->setValue(NewValue); }
+	void replace(Edge *E, int NewWeight) { E->setWeight(NewWeight); }
 	Vertex* insertVertex(int value);									//dodaje na pocz¹tek listy wierzcho³ków
 	void insertEdge(Vertex* source, Vertex* target, int Weight);
-	Edge* incidentEdges(Vertex *V);
+	Edge* incidentEdges(Vertex* V);
 	int vertices() { return nbofVertices; }
 	int edges() { return nbofEdges; }
 	void displayVertices();
 	void displayEdges();
 	void displayIncidentEdges(int value);
-	void test(Vertex *V);
+	//void test(Vertex* V);
+
+
 };
 

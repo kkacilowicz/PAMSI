@@ -7,6 +7,7 @@ class Edge
 	Vertex* source;											//wezel do wierzcholka z ktorego wychodzi
 	Vertex* target;											//wezel do wierzcholka do ktorej wchodzi
 	friend class AdjacencyList;
+	friend class AdjacencyMatrix;
 public:
 	Edge() {
 		next = nullptr;

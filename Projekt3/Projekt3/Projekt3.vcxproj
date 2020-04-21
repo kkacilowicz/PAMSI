@@ -148,6 +148,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AdjacencyList.cpp" />
+    <ClCompile Include="AdjacencyMatrix.cpp" />
     <ClCompile Include="Edge.cpp" />
     <ClCompile Include="PriorityQueue.cpp" />
     <ClCompile Include="Projekt3.cpp" />
@@ -156,6 +157,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AdjacencyList.h" />
+    <ClInclude Include="AdjacencyMatrix.h" />
     <ClInclude Include="Edge.h" />
     <ClInclude Include="PriorityQueue.h" />
     <ClInclude Include="SLinkedList.h" />
