@@ -1,6 +1,6 @@
 #include "AdjacencyList.h"
 #include <iostream>
-
+#include <queue>
 Vertex* AdjacencyList::endVertices(Edge E)
 {
 	Vertex* ArrayofVertices[2];
@@ -13,14 +13,11 @@ Vertex* AdjacencyList::endVertices(Edge E)
 
 Vertex* AdjacencyList::opposite(Vertex *V, Edge *E)
 {
-
-	if (V->getValue()==E->getSource()->getValue())
+	if (V->getValue() == E->getSource()->getValue())
 	{
 		return E->getTarget();
 	}
-	else if (V->getValue() == E->getTarget()->getValue()) {
-		return E->getSource();
-	}
+
 }
 
 bool AdjacencyList::areAdjacent(Vertex *V, Vertex *W)
@@ -56,6 +53,16 @@ Vertex* AdjacencyList::insertVertex(int value)
 	}
 	else if (headVertex->getValue()!=value)
 	{
+		Vertex* tmp = headVertex;
+		while (tmp)
+		{
+			if (tmp->getValue()==value)
+			{
+				return headVertex;
+			}
+			tmp = tmp->next;
+		}
+
 		Vertex* V = new Vertex;
 		V->setValue(value);
 		V->setNext(headVertex);
@@ -70,7 +77,6 @@ void AdjacencyList::insertEdge(Vertex* source, Vertex* target, int Weight)
 {
 	Edge* E = new Edge;
 	Edge* E1 = new Edge;
-	Edge* E2 = new Edge;
 	E->setWeight(Weight);
 	E->setSource(source);
 	E->setTarget(target);
@@ -79,17 +85,11 @@ void AdjacencyList::insertEdge(Vertex* source, Vertex* target, int Weight)
 	E1->setSource(source);
 	E1->setTarget(target);
 
-	E2->setWeight(Weight);
-	E2->setSource(source);
-	E2->setTarget(target);
-
 	int IndexOfVertexSource = source->getValue();
 	int IndexOfVertexTarget = target->getValue();
 	E->setNext(headEdge);
 	E1->setNext(ListofEdges[IndexOfVertexSource]);
-	E2->setNext(ListofEdges[IndexOfVertexTarget]);
 	ListofEdges[IndexOfVertexSource]=E1;
-	ListofEdges[IndexOfVertexTarget]=E2;
 	headEdge = E;
 	nbofEdges++;
 }
@@ -97,9 +97,12 @@ void AdjacencyList::insertEdge(Vertex* source, Vertex* target, int Weight)
 Edge* AdjacencyList::incidentEdges(Vertex* V)
 {
 	int index = V->getValue();
-	Edge* tmp = ListofEdges[index];
+	Edge* head = NULL;
 
-	return tmp;
+	head = ListofEdges[index];
+	
+		
+	return head;
 }
 
 
@@ -161,4 +164,70 @@ void AdjacencyList::test(Vertex* V)
 	}
 	
 
+}
+
+void AdjacencyList::DijkstraDistances(int startVertex)
+{
+
+	std::queue<int>* st = new std::queue<int>[nbofVertices];
+
+	
+	int infinity = INT_MAX;
+	for (int i = 0; i < nbofVertices; i++)
+	{
+		st[i].push(startVertex);					//nieznany jest koszt dojœcia do ka¿dego wierzcho³ka
+	}
+
+
+	Vertex* tmp = headVertex;
+	while (tmp)											//inicjowanie wartoœci wszystkich wierzcho³ków
+	{
+		if (tmp->getValue() == startVertex)
+			tmp->setDistance(0);
+		else
+			tmp->setDistance(infinity);
+
+		tmp = tmp->next;
+	}
+	
+	PriorityQueue PQ(headVertex, nbofVertices);
+	PQ.BuildHeapVertices();
+
+	while (!PQ.empty())											//dopóki nie jest pusta
+	{
+		Vertex* V = PQ.RemoveMinVertex();
+		Edge* E = incidentEdges(V);								//lista krawêdzi incydentnych
+		while (E)
+		{
+			Vertex* Z = opposite(V, E);							//wierzcho³ek po drugiej stronie krawêdzi jest przetwarzany
+			int route;
+			route = V->getDistance() + E->getWeight();
+			if (route < Z->getDistance()) {
+				Z->setDistance(route);
+				st[Z->getValue()].push(V->getValue());
+			}
+			PQ.BuildHeapVertices();
+			E = E->next;										//sprawdŸ nastêpn¹ krawêdŸ
+		}
+	}
+
+	Vertex* tmp1 = headVertex;
+	while (tmp1)
+	{
+		std::cout << tmp1->getValue() << " = [ ";
+
+		
+		while (st[tmp1->getValue()].size()!=0)
+		{
+			std::cout << st[tmp1->getValue()].front() << " ";
+			st[tmp1->getValue()].pop();
+		}
+		
+		
+		std::cout << "] " << tmp1->getDistance() << std::endl;
+		tmp1 = tmp1->next;
+	}
+	
+
+	delete[] st;
 }

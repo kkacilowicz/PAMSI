@@ -36,6 +36,9 @@
     <ClCompile Include="AdjacencyMatrix.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Projekt1\Projekt1 - Struktury\DLinkedList.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Edge.h">

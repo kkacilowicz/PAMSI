@@ -1,5 +1,6 @@
 #pragma once
 #include "Edge.h"
+#include"PriorityQueue.h"
 #include <cstddef>
 #include<iostream>
 class AdjacencyList
@@ -23,7 +24,7 @@ public:
 	}
 	/*
 	~AdjacencyList() {
-
+		
 		Vertex* tmp = headVertex;
 		while (tmp)
 		{
@@ -32,7 +33,7 @@ public:
 			delete old;
 			tmp = tmp->next;
 		}
-
+		
 		Edge* tmp1 = headEdge;
 		while (tmp1)
 		{
@@ -41,11 +42,11 @@ public:
 			delete old;
 			tmp1 = tmp1->next;
 		}
-		
 		for (int i = 0; i < nbofVertices; ++i) {
 			delete[] ListofEdges[i];
 		}
 		delete[] ListofEdges;
+		
 	}
 	*/
 	Vertex* endVertices(Edge E);
@@ -56,11 +57,12 @@ public:
 	Vertex* insertVertex(int value);									//dodaje na pocz¹tek listy wierzcho³ków
 	void insertEdge(Vertex* source, Vertex* target, int Weight);
 	Edge* incidentEdges(Vertex *V);
-	int vertices() { return nbofVertices; }
-	int edges() { return nbofEdges; }
+	Vertex* vertices() { return headVertex; }
+	Edge* edges() { return headEdge; }
 	void displayVertices();
 	void displayEdges();
 	void displayIncidentEdges(int value);
 	void test(Vertex *V);
+	void DijkstraDistances(int startVertex);
 };
 

@@ -1,7 +1,8 @@
 #pragma once
 #include "Edge.h"
+#include"PriorityQueue.h"
 #include <cstddef>
-/*Implementacja macierzy s¹siedztwa dla grafu nieskierowanego*/
+/*Implementacja macierzy s¹siedztwa dla grafu skierowanego, gdzie za krawêdŸ incydentn¹ uznajê t¹ która wychodzi z wierzcho³ka*/
 class AdjacencyMatrix
 {
 	Vertex* headVertex;						//lista wierzcho³ków
@@ -69,8 +70,6 @@ public:
 	void displayVertices();
 	void displayEdges();
 	void displayIncidentEdges(int value);
-	//void test(Vertex* V);
-
-
+	void DijkstraDistances(int startVertex);
 };
 

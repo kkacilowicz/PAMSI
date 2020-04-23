@@ -147,6 +147,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Projekt1\Projekt1 - Struktury\DLinkedList.cpp" />
     <ClCompile Include="AdjacencyList.cpp" />
     <ClCompile Include="AdjacencyMatrix.cpp" />
     <ClCompile Include="Edge.cpp" />
