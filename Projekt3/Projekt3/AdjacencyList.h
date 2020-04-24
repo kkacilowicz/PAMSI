@@ -3,6 +3,7 @@
 #include"PriorityQueue.h"
 #include <cstddef>
 #include<iostream>
+#include <fstream>
 class AdjacencyList
 {
 	Edge** ListofEdges;						//lista krawêdzi, która zawiera informacje o incydencjach
@@ -64,5 +65,8 @@ public:
 	void displayIncidentEdges(int value);
 	void test(Vertex *V);
 	void DijkstraDistances(int startVertex);
+	void DijkstraDistances(int startVertex, std::string OutputName);
+	bool BellmanFordDistances(int startVertex);
+	bool BellmanFordDistances(int startVertex, std::string OutputName);
 };
 

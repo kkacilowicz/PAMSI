@@ -2,6 +2,7 @@
 #include "Edge.h"
 #include"PriorityQueue.h"
 #include <cstddef>
+#include<fstream>
 /*Implementacja macierzy s¹siedztwa dla grafu skierowanego, gdzie za krawêdŸ incydentn¹ uznajê t¹ która wychodzi z wierzcho³ka*/
 class AdjacencyMatrix
 {
@@ -71,5 +72,8 @@ public:
 	void displayEdges();
 	void displayIncidentEdges(int value);
 	void DijkstraDistances(int startVertex);
+	void DijkstraDistances(int startVertex, std::string OutputName);
+	bool BellmanFordDistances(int startVertex);
+	bool BellmanFordDistances(int startVertex, std::string OutputName);
 };
 

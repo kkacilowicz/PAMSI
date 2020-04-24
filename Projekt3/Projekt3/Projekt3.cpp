@@ -4,6 +4,8 @@
 #include <iostream>
 #include <ctime>
 #include<fstream>
+#include <string>
+#include<vector>
 #include"PriorityQueue.h"
 #include "AdjacencyList.h"
 #include"AdjacencyMatrix.h"
@@ -11,164 +13,166 @@
 using namespace std;
 
 
-int main()
-{
-/*
-	fstream File;               //plik z ktorego wczytujemy
+int SPDijkstraMatrix(std::string InputName, std::string OutputName) {
+
+
+	ifstream Input;               //plik z ktorego wczytujemy
 	int VSource, VTarget, Weight;
 	int nbofvertices, nbofedges, VStart;
 
 
-
-	File.open("graphV10Dens0.5.txt", ios::in);
-	if (File.good() == false) {
+	Input.open(InputName);
+	if (Input.good() == false) {
 		cout << "Nie wczytano";
 		return 0;
 	}
 
-	File >> nbofvertices >> nbofedges >> VStart;
+	Input >> nbofvertices >> nbofedges >> VStart;
 
 	AdjacencyMatrix AM(nbofvertices);
 
 	Vertex** TabVertex = new Vertex * [nbofvertices];
-
 
 	for (int i = 0; i < nbofvertices; i++)
 	{
 		TabVertex[i] = AM.insertVertex(i);
 	}
 
-	while (!File.eof())
+	while (!Input.eof())
 	{
-		while (File >> VSource >> VTarget >> Weight)
+		while (Input >> VSource >> VTarget >> Weight)
 		{
 			AM.insertEdge(TabVertex[VSource], TabVertex[VTarget], Weight);
 		}
 	}
-	File.close();
+	Input.close();
 
-	
-
-	AM.DijkstraDistances(3);
-	*/
-
-	Vertex* V1 = new Vertex;
-	Vertex* V2 = new Vertex;
-	Vertex* V3 = new Vertex;
-	Vertex* V4 = new Vertex;
-	Vertex* V5 = new Vertex;
-	Vertex* V6 = new Vertex;
-	Vertex* V7 = new Vertex;
-	Vertex* V8 = new Vertex;
-	Vertex* V9 = new Vertex;
-	Vertex* V10 = new Vertex;
-
-
-	V2->setValue(2);
-	V3->setValue(3);
-	V4->setValue(4);
-	V5->setValue(5);
-	V6->setValue(6);
-	V7->setValue(7);
-	V8->setValue(8);
-	V9->setValue(9);
-	V10->setValue(10);
-	
-	int nbofvertices;
-	nbofvertices = 10;
-
-	AdjacencyMatrix AM(6);
-
-	AdjacencyList AL(nbofvertices);
-	Vertex** TabVertex= new Vertex* [nbofvertices];
-
-
-	for (int i = 0; i < nbofvertices; i++)
-	{
-		TabVertex[i] = AL.insertVertex(i);
-	}
-	/*
-	AM.insertEdge(TabVertex[0], TabVertex[1], 3);
-	AM.insertEdge(TabVertex[0], TabVertex[4], 3);
-	AM.insertEdge(TabVertex[1], TabVertex[2], 1);
-	AM.insertEdge(TabVertex[2], TabVertex[3], 3);
-	AM.insertEdge(TabVertex[2], TabVertex[5], 1);
-	AM.insertEdge(TabVertex[3], TabVertex[1], 3);
-	AM.insertEdge(TabVertex[4], TabVertex[5], 2);
-	AM.insertEdge(TabVertex[5], TabVertex[0], 6);
-	AM.insertEdge(TabVertex[5], TabVertex[3], 1);
-	AM.displayEdges();
-	AM.displayVertices();
-	*/
-	//AM.DijkstraDistances(0);
-	//AM.displayIncidentEdges(0);
-
-
-	AL.insertEdge(TabVertex[0], TabVertex[1], 75);
-	AL.insertEdge(TabVertex[0], TabVertex[5], 111);
-	AL.insertEdge(TabVertex[0], TabVertex[6], 30);
-	AL.insertEdge(TabVertex[0], TabVertex[7], 119);
-
-	AL.insertEdge(TabVertex[1], TabVertex[0], 123);
-	AL.insertEdge(TabVertex[1], TabVertex[2], 27);
-	AL.insertEdge(TabVertex[1], TabVertex[4], 101);
-	AL.insertEdge(TabVertex[1], TabVertex[7], 48);
-	
-	AL.insertEdge(TabVertex[2], TabVertex[0], 14);
-	AL.insertEdge(TabVertex[2], TabVertex[1], 132);
-	AL.insertEdge(TabVertex[2], TabVertex[3], 129);
-	AL.insertEdge(TabVertex[2], TabVertex[4], 119);
-	AL.insertEdge(TabVertex[2], TabVertex[6], 99);
-	AL.insertEdge(TabVertex[2], TabVertex[9], 62);
-
-	AL.insertEdge(TabVertex[3], TabVertex[0], 38);
-	AL.insertEdge(TabVertex[3], TabVertex[8], 46);
-	AL.insertEdge(TabVertex[3], TabVertex[2], 15);
-	AL.insertEdge(TabVertex[3], TabVertex[7], 27);
-	
-	AL.insertEdge(TabVertex[4], TabVertex[0], 61);
-	AL.insertEdge(TabVertex[4], TabVertex[1], 96);
-	AL.insertEdge(TabVertex[4], TabVertex[3], 77);
-	AL.insertEdge(TabVertex[4], TabVertex[5], 98);
-	AL.insertEdge(TabVertex[4], TabVertex[9], 28);
-	
-	AL.insertEdge(TabVertex[5], TabVertex[8], 32);
-	AL.insertEdge(TabVertex[5], TabVertex[1], 113);
-	AL.insertEdge(TabVertex[5], TabVertex[3], 86);
-	AL.insertEdge(TabVertex[5], TabVertex[9], 81);
-
-	AL.insertEdge(TabVertex[6], TabVertex[0], 120);
-	AL.insertEdge(TabVertex[6], TabVertex[2], 65);
-	AL.insertEdge(TabVertex[6], TabVertex[3], 102);
-	AL.insertEdge(TabVertex[6], TabVertex[5], 29);
-	AL.insertEdge(TabVertex[6], TabVertex[8], 15);
-	AL.insertEdge(TabVertex[6], TabVertex[9], 122);
-	
-	AL.insertEdge(TabVertex[7], TabVertex[1], 80);
-	AL.insertEdge(TabVertex[7], TabVertex[3], 106);
-	AL.insertEdge(TabVertex[7], TabVertex[5], 57);
-	AL.insertEdge(TabVertex[7], TabVertex[6], 133);
-	
-	AL.insertEdge(TabVertex[8], TabVertex[1], 53);
-	AL.insertEdge(TabVertex[8], TabVertex[4], 73);
-	AL.insertEdge(TabVertex[8], TabVertex[6], 119);
-	AL.insertEdge(TabVertex[8], TabVertex[7], 98);
-
-	AL.insertEdge(TabVertex[9], TabVertex[8], 93);
-	AL.insertEdge(TabVertex[9], TabVertex[3], 41);
-	AL.insertEdge(TabVertex[9], TabVertex[5], 61);
-	AL.insertEdge(TabVertex[9], TabVertex[7], 102);
-
-	//AL.displayEdges();
-
-	AL.DijkstraDistances(3);
-	
+	AM.DijkstraDistances(VStart, OutputName);
 
 	for (int i = 0; i < nbofvertices; i++)
 	{
 		delete TabVertex[i];
 	}
 	delete[] TabVertex;
+}
+
+
+int SPDijkstraList(std::string InputName, std::string OutputName) {
+
+
+	ifstream Input;               //plik z ktorego wczytujemy
+	int VSource, VTarget, Weight;
+	int nbofvertices, nbofedges, VStart;
+
+
+
+
+	Input.open(InputName);
+	if (Input.good() == false) {
+		cout << "Nie wczytano";
+		return 0;
+	}
+
+
+	Input >> nbofvertices >> nbofedges >> VStart;
+
+	AdjacencyList AL(nbofvertices);
+
+	Vertex** TabVertex = new Vertex * [nbofvertices];
+
+	for (int i = 0; i < nbofvertices; i++)
+	{
+		TabVertex[i] = AL.insertVertex(i);
+	}
+
+	while (!Input.eof())
+	{
+		while (Input >> VSource >> VTarget >> Weight)
+		{
+			AL.insertEdge(TabVertex[VSource], TabVertex[VTarget], Weight);
+		}
+	}
+	Input.close();
+
+
+
+	AL.DijkstraDistances(VStart, OutputName);
+
+
+
+
+
+	for (int i = 0; i < nbofvertices; i++)
+	{
+		delete TabVertex[i];
+	}
+	delete[] TabVertex;
+}
+
+
+
+int main()
+{
+
+	int nbofvertices = 6;
+
+	AdjacencyList AL(nbofvertices);
+
+	Vertex** TabVertex = new Vertex * [nbofvertices];
+
+	for (int i = 0; i < nbofvertices; i++)
+	{
+		TabVertex[i] = AL.insertVertex(i);
+	}
+
+	string Output;
+	Output = "test.txt";
+
+	AL.insertEdge(TabVertex[0], TabVertex[1], 3);
+	AL.insertEdge(TabVertex[0], TabVertex[4], 3);
+	AL.insertEdge(TabVertex[1], TabVertex[2], 1);
+	AL.insertEdge(TabVertex[2], TabVertex[3], 3);
+	AL.insertEdge(TabVertex[2], TabVertex[5], 1);
+	AL.insertEdge(TabVertex[3], TabVertex[1], 3);
+	AL.insertEdge(TabVertex[4], TabVertex[5], 2);
+	AL.insertEdge(TabVertex[5], TabVertex[0], 6);
+	AL.insertEdge(TabVertex[5], TabVertex[3], 1);
+	AL.displayEdges();
+	AL.displayVertices();
 	
+	AL.BellmanFordDistances(0, Output);
+
+	////////////////Tutaj są rzeczy do testowania z plików///////////////////////
+	/*
+	string InputName, OutputName;
+	std::vector<int> nVector{ 10, 15, 20, 30, 50, 70, 100, 150, 200 };          //wielkosc tablicy do posortowania
+	std::vector<string> Density{ "0.25", "0.5","0.75", "1"}; //wektor oznaczjacy % posortowania przed testem (-1 oznacza reverse)
+
+
+	
+	for (const auto& n : nVector)
+	{
+		for (const auto& D : Density)
+		{
+
+			InputName.append("C:\\Users\\Lenovo\\source\\repos\\kacperowekar\\PAMSI\\Projekt3\\Projekt3\\src\\graphV");
+			InputName.append("200");
+			InputName.append("Dens");
+			InputName.append("1");
+			InputName.append(".txt");
+
+			OutputName.append("C:\\Users\\Lenovo\\source\\repos\\kacperowekar\\PAMSI\\Projekt3\\Projekt3\\results\\spV");
+			OutputName.append("200");
+			OutputName.append("Dens");
+			OutputName.append("1");
+			OutputName.append(".txt");
+
+			SPDijkstraMatrix(InputName, OutputName);
+
+			InputName.clear();
+			OutputName.clear();
+		}
+	}
+	*/
 }
 

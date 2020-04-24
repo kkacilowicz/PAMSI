@@ -147,22 +147,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Projekt1\Projekt1 - Struktury\DLinkedList.cpp" />
     <ClCompile Include="AdjacencyList.cpp" />
     <ClCompile Include="AdjacencyMatrix.cpp" />
-    <ClCompile Include="Edge.cpp" />
     <ClCompile Include="PriorityQueue.cpp" />
     <ClCompile Include="Projekt3.cpp" />
-    <ClCompile Include="SLinkedList.cpp" />
-    <ClCompile Include="Vertex.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AdjacencyList.h" />
     <ClInclude Include="AdjacencyMatrix.h" />
     <ClInclude Include="Edge.h" />
     <ClInclude Include="PriorityQueue.h" />
-    <ClInclude Include="SLinkedList.h" />
-    <ClInclude Include="SNode.h" />
     <ClInclude Include="Vertex.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
