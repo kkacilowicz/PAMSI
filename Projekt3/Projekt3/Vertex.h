@@ -2,7 +2,7 @@
 #include <climits>
 class Vertex
 {private:
-	int value;									//wartoœæ wierzcho³ka
+	int value;									//wartoœæ wierzcho³ka - klucz
 	Vertex* next;								//wêze³ do nastêpnego wierzcho³ka w liœcie
 	int distance;								//etykieta dystansu (odleg³oœæ od wierzcho³ka startowego)
 	friend class AdjacencyList;

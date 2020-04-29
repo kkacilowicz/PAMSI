@@ -78,8 +78,8 @@ void AdjacencyMatrix::insertEdge(Vertex* source, Vertex* target, int Weight)
 
 	int IndexOfVertexSource = source->getValue();
 	int IndexOfVertexTarget = target->getValue();
-	E->setNext(headEdge);
-	MatrixEdge[IndexOfVertexSource][IndexOfVertexTarget] = E;
+	E->setNext(headEdge);											//dodanie do listy krawêdzi (nieu¿ywana lista)
+	MatrixEdge[IndexOfVertexSource][IndexOfVertexTarget] = E;		//wstawienie krawêdzi w odpowiednie miejsce w macierzy
 	headEdge = E;
 	nbofEdges++;
 }
@@ -92,14 +92,14 @@ Edge* AdjacencyMatrix::incidentEdges(Vertex* V)
 	for (int j = 0; j < nbofVertices; j++)
 	{
 
-		if (MatrixEdge[value][j] != NULL)
+		if (MatrixEdge[value][j] != NULL)			//jeœli jest NULL to oznacza, ¿e nie ma krawêdzi z wierzcho³ka value do wierzcho³ka j
 		{
-			MatrixEdge[value][j]->setNext(head);
+			MatrixEdge[value][j]->setNext(head);    //tworzenie listy krawêdzi incydentnych
 			head = MatrixEdge[value][j];
 		}
 
 	}
-	return head;
+	return head;									//zwrócenie listy krawêdzi incydentnych danego wierzcho³ka
 }
 
 void AdjacencyMatrix::displayVertices()
@@ -158,7 +158,7 @@ void AdjacencyMatrix::displayIncidentEdges(int value)
 void AdjacencyMatrix::DijkstraDistances(int startVertex)
 {
 
-	int infinity = INT_MAX - 1000;
+	int infinity = 10000000;
 
 	Vertex* tmp = headVertex;
 	while (tmp)											//inicjowanie wartoœci wszystkich wierzcho³ków
@@ -171,12 +171,12 @@ void AdjacencyMatrix::DijkstraDistances(int startVertex)
 		tmp = tmp->next;
 	}
 
-	PriorityQueue PQ(headVertex, nbofVertices);
-	PQ.BuildHeapVertices();
+	PriorityQueue *PQ= new PriorityQueue(headVertex, nbofVertices);
+	PQ->BuildHeapVertices();
 
-	while (!PQ.empty())											//dopóki nie jest pusta
+	while (!PQ->empty())											//dopóki nie jest pusta
 	{
-		Vertex* V = PQ.RemoveMinVertex();
+		Vertex* V = PQ->RemoveMinVertex();
 		Edge* E = incidentEdges(V);								//lista krawêdzi incydentnych
 		while (E)
 		{
@@ -186,28 +186,30 @@ void AdjacencyMatrix::DijkstraDistances(int startVertex)
 			if (route < Z->getDistance()) {
 				Z->setDistance(route);
 			}
-			PQ.BuildHeapVertices();
+			PQ->BuildHeapVertices();
 			E = E->next;										//sprawdŸ nastêpn¹ krawêdŸ
 		}
 	}
+	delete PQ;
 }
 
 void AdjacencyMatrix::DijkstraDistances(int startVertex, std::string OutputName)
 {
-	std::ofstream Output;
-	std::string* line = new std::string[nbofVertices];
+
+	std::ofstream Output;										//plik do zapisu
+	std::string* line = new std::string[nbofVertices];			//to s³u¿y do wyœwietlenia œcie¿ki w poprawnej kolejnoœci w pliku
 	Output.open(OutputName);
 
-	if (Output.good()==false)
+	if (Output.good() == false)
 	{
 		std::cerr << "Nie mo¿na otworzyæ pliku do zapisu";
 	}
 
 	Output << "source: " << startVertex << std::endl;
 
-	int* path = new int[nbofVertices];				//œcie¿ka
+	int* path = new int[nbofVertices];							//œcie¿ka, zapisywani s¹ w niej poprzednicy
 	int* StackofPath = new int[nbofVertices];					//stos do wyœwietlania œcie¿ki
-	int infinity = INT_MAX-1000;
+	int infinity = 10000000;
 
 	for (int i = 0; i < nbofVertices; i++)
 	{
@@ -220,58 +222,68 @@ void AdjacencyMatrix::DijkstraDistances(int startVertex, std::string OutputName)
 	while (tmp)											//inicjowanie wartoœci wszystkich wierzcho³ków
 	{
 		if (tmp->getValue() == startVertex)
-			tmp->setDistance(0);
+			tmp->setDistance(0);						//wierzcho³ek startowy na 0
 		else
-			tmp->setDistance(infinity);
+			tmp->setDistance(infinity);					//reszta na nieskoñczonoœæ
 
 		tmp = tmp->next;
 	}
 
-	PriorityQueue PQ(headVertex, nbofVertices);
-	PQ.BuildHeapVertices();
+	PriorityQueue* PQ = new PriorityQueue(headVertex, nbofVertices);	//tworzenie kolejki priorytetowej i kopiowanie do niej ca³ej listy wierzcho³ków
+	PQ->BuildHeapVertices();
 
-	while (!PQ.empty())											//dopóki nie jest pusta
+	while (!PQ->empty())											//dopóki nie jest pusta
 	{
-		Vertex* V = PQ.RemoveMinVertex();
-		Edge* E = incidentEdges(V);								//lista krawêdzi incydentnych
+		Vertex* V = PQ->RemoveMinVertex();
+		Edge* E = incidentEdges(V);								//lista krawêdzi incydentnych danego wierzcho³ka
 		while (E)
 		{
 			Vertex* Z = opposite(V, E);							//wierzcho³ek po drugiej stronie krawêdzi jest przetwarzany
 			int route;
-			route = V->getDistance() + E->getWeight();
-			if (route < Z->getDistance()) {
-				Z->setDistance(route);
-				path[Z->getValue()] = V->getValue();
+			route = V->getDistance() + E->getWeight();			//droga - wartoœæ œcie¿ki do poprzednika + waga krawêdzi miêdzy nimi
+			if (route < Z->getDistance()) {						//jeœli znaleziono krótsz¹ œcie¿kê, 
+				Z->setDistance(route);							//ustaw now¹ wartoœæ dystansu
+				path[Z->getValue()] = V->getValue();			//zapamiêtaj poprzednika
 			}
-			PQ.BuildHeapVertices();
+			PQ->BuildHeapVertices();							//przywróæ w³asnoœæ kopca
 			E = E->next;										//sprawdŸ nastêpn¹ krawêdŸ
 		}
 	}
-	int sptr = 0;
 	Vertex* tmp1 = headVertex;
-	for (int i = 0; i < nbofVertices; i++)
+
+	int i = 0;
+	int sptr = 0;
+	/*Tutaj znajduje siê zapis do pliku wszystkich œcie¿ek oraz ich wartoœci*/
+	while (tmp1)
 	{
 		line[nbofVertices - (i + 1)].append(std::to_string(nbofVertices - (i + 1)));
-		line[nbofVertices - (i + 1)].append("= [  ");
+		line[nbofVertices - (i + 1)].append("= [ ");
 
-		for (int j = (nbofVertices - (i + 1)); j > -1; j = path[j]) StackofPath[sptr++] = j;
+		for (int j = (nbofVertices - (i + 1)); j > -1; j = path[j]) {
+			StackofPath[sptr] = j;				//zapis w stosie ka¿dego poprzednika, a¿ dojdzie do wierzcho³ka startowego
+			sptr++;
+		}
 
 		while (sptr) {
-			line[nbofVertices - (i + 1)].append(std::to_string(StackofPath[--sptr]));
-			line[nbofVertices - (i + 1)].append( " ");
+			line[nbofVertices - (i + 1)].append(std::to_string(StackofPath[--sptr]));	//zapis œcie¿ki od wierzcho³ka do wierzcho³ka startowego
+			line[nbofVertices - (i + 1)].append(" ");
 		}
+
 		line[nbofVertices - (i + 1)].append("] ");
-		line[nbofVertices - (i + 1)].append(std::to_string(tmp1->getDistance()));
+		line[nbofVertices - (i + 1)].append(std::to_string(tmp1->getDistance()));		//zapis kosztu œcie¿ki
 		line[nbofVertices - (i + 1)].append("\n");
+
+		i++;
 		tmp1 = tmp1->next;
 	}
+
 	for (int i = 0; i < nbofVertices; i++)
 	{
-		Output<< line[i];
+		Output << line[i];						//zapis do pliku
 	}
 	Output.close();
 
-
+	delete PQ;
 	delete[] line;
 	delete[] StackofPath;
 	delete[] path;
@@ -280,9 +292,7 @@ void AdjacencyMatrix::DijkstraDistances(int startVertex, std::string OutputName)
 bool AdjacencyMatrix::BellmanFordDistances(int startVertex)
 {
 
-	std::string* line = new std::string[nbofVertices];
-	int* StackofPath = new int[nbofVertices];
-	int infinity = INT_MAX - 1000;
+	int infinity = 100000000;
 
 	int* Prev = new int[nbofVertices];
 
@@ -350,45 +360,20 @@ bool AdjacencyMatrix::BellmanFordDistances(int startVertex)
 		X = X->next;
 	}
 
-
-	int sptr = 0;
-	Vertex* tmp1=headVertex;
-	for (int i = 0; i < nbofVertices; i++)
-	{
-		line[nbofVertices - (i + 1)].append(std::to_string(nbofVertices - (i + 1)));
-		line[nbofVertices - (i + 1)].append("= [  ");
-
-		for (int j = (nbofVertices - (i + 1)); j > -1; j = Prev[j]) StackofPath[sptr++] = j;
-
-		while (sptr) {
-			line[nbofVertices - (i + 1)].append(std::to_string(StackofPath[--sptr]));
-			line[nbofVertices - (i + 1)].append(" ");
-		}
-		line[nbofVertices - (i + 1)].append("] ");
-		line[nbofVertices - (i + 1)].append(std::to_string(tmp1->getDistance()));
-		line[nbofVertices - (i + 1)].append("\n");
-		tmp1 = tmp1->next;
-	}
-
-	for (int i = 0; i < nbofVertices; i++)
-	{
-		std::cout << line[i];
-	}
-	
 	return true;
 
-	delete[] line;
-	delete[] StackofPath;
 	delete[] Prev;
 }
 
 bool AdjacencyMatrix::BellmanFordDistances(int startVertex, std::string OutputName)
 {
-	std::ofstream Output;
-	std::string* line = new std::string[nbofVertices];
-	int* StackofPath = new int[nbofVertices];
-	int infinity = INT_MAX - 1000;
-	int* Prev = new int[nbofVertices];
+
+
+	std::ofstream Output;									//plik zapisowy
+	std::string* line = new std::string[nbofVertices];		//to s³u¿y do wyœwietlenia œcie¿ki w poprawnej kolejnoœci w pliku
+	int* StackofPath = new int[nbofVertices];				//stos do przedstawienia pe³nej œcie¿ki do wierzcho³ka
+	int infinity = 100000000;
+	int* Prev = new int[nbofVertices];						//tablica poprzedniego 
 
 	Output.open(OutputName);
 
@@ -401,6 +386,7 @@ bool AdjacencyMatrix::BellmanFordDistances(int startVertex, std::string OutputNa
 
 	for (int i = 0; i < nbofVertices; i++)
 	{
+		StackofPath[i] = -1;
 		Prev[i] = -1;
 	}
 
@@ -408,29 +394,29 @@ bool AdjacencyMatrix::BellmanFordDistances(int startVertex, std::string OutputNa
 	while (tmp)											//inicjowanie wartoœci wszystkich wierzcho³ków
 	{
 		if (tmp->getValue() == startVertex)
-			tmp->setDistance(0);
+			tmp->setDistance(0);						//wierzcho³ek startowy - dystans na 0
 		else
-			tmp->setDistance(infinity);
+			tmp->setDistance(infinity);				   //wszystkie inne wierzcho³ki na nisekoñczonoœæ
 
 		tmp = tmp->next;
 	}
 
 
-	for (int i = 1; i < nbofVertices; i++)
+	for (int i = 1; i < nbofVertices; i++)				//zastosuj dla pozosta³ych V-1 wierzcho³ków
 	{
 		Vertex* V = headVertex;
 
-		while (V)
+		while (V)										//przeszukiwanie ca³ej listy wierzcho³ków
 		{
 			Edge* E = incidentEdges(V);
 
-			while (E)
+			while (E)									//przeszukanie wszystkich krawêdzi incydentnych tego wierzcho³ka (te które z niego wychodz¹)
 			{
 				Vertex* Z = opposite(V, E);							//wierzcho³ek po drugiej stronie krawêdzi jest przetwarzany
 				int route;
-				route = V->getDistance() + E->getWeight();
-				if (route < Z->getDistance()) {
-					Z->setDistance(route);
+				route = V->getDistance() + E->getWeight();			//droga - wartoœæ œcie¿ki do poprzednika + waga krawêdzi miêdzy nimi
+				if (route < Z->getDistance()) {						//jeœli znaleziono krótsz¹ œcie¿kê,
+					Z->setDistance(route);							//ustaw now¹ wartoœæ dystansu
 					Prev[Z->getValue()] = V->getValue();			//zapisuje poprzednika w œcie¿ce
 				}
 
@@ -441,8 +427,10 @@ bool AdjacencyMatrix::BellmanFordDistances(int startVertex, std::string OutputNa
 		}
 	}
 
+
 	Vertex* X = headVertex;
 
+	/*Sprawdzenie wyst¹pienia ujemnego cyklue*/
 	while (X)
 	{
 		Edge* E = incidentEdges(X);
@@ -451,9 +439,9 @@ bool AdjacencyMatrix::BellmanFordDistances(int startVertex, std::string OutputNa
 		{
 			Vertex* Z = opposite(X, E);							//wierzcho³ek po drugiej stronie krawêdzi jest przetwarzany
 			int route;
-			route = X->getDistance() + E->getWeight();
-			if (route < Z->getDistance()) {
-				std::cerr << "Error: Ujemny cykl!!!";
+			route = X->getDistance() + E->getWeight();		
+			if (Z->getDistance() != infinity && route < Z->getDistance()) {	//jeœli warunek z poprzedniej funkcji dla któregokolwiek wierzcho³ka nie jest spe³niony
+				std::cerr << "Error: Ujemny cykl!!!";						//oznacza wyst¹pienie ujemnego cyklu
 				Output << "Error: Ujemny cykl!!!";
 				Output.close();
 				return false;
@@ -466,28 +454,39 @@ bool AdjacencyMatrix::BellmanFordDistances(int startVertex, std::string OutputNa
 	}
 
 
-	int sptr = 0;
+
 	Vertex* tmp1 = headVertex;
-	for (int i = 0; i < nbofVertices; i++)
+
+	int i = 0;
+	int sptr = 0;
+	/*Tutaj znajduje siê zapis do pliku wszystkich œcie¿ek oraz ich wartoœci*/
+	while (tmp1)
 	{
 		line[nbofVertices - (i + 1)].append(std::to_string(nbofVertices - (i + 1)));
-		line[nbofVertices - (i + 1)].append("= [  ");
+		line[nbofVertices - (i + 1)].append("= [ ");
 
-		for (int j = (nbofVertices - (i + 1)); j > -1; j = Prev[j]) StackofPath[sptr++] = j;
+		for (int j = (nbofVertices - (i + 1)); j > -1; j = Prev[j]) {
+			StackofPath[sptr] = j;								//zapis w stosie ka¿dego poprzednika, a¿ dojdzie do wierzcho³ka startowego
+			sptr++;
+		}
 
 		while (sptr) {
-			line[nbofVertices - (i + 1)].append(std::to_string(StackofPath[--sptr]));
+			line[nbofVertices - (i + 1)].append(std::to_string(StackofPath[--sptr]));	//zapis œcie¿ki od wierzcho³ka do wierzcho³ka startowego
 			line[nbofVertices - (i + 1)].append(" ");
 		}
+
 		line[nbofVertices - (i + 1)].append("] ");
-		line[nbofVertices - (i + 1)].append(std::to_string(tmp1->getDistance()));
+		line[nbofVertices - (i + 1)].append(std::to_string(tmp1->getDistance()));	//zapis kosztu œcie¿ki
 		line[nbofVertices - (i + 1)].append("\n");
+
+		i++;
 		tmp1 = tmp1->next;
 	}
 
+
 	for (int i = 0; i < nbofVertices; i++)
 	{
-		Output << line[i];
+		Output << line[i];	//zapis do pliku
 	}
 	Output.close();
 	return true;
@@ -496,3 +495,4 @@ bool AdjacencyMatrix::BellmanFordDistances(int startVertex, std::string OutputNa
 	delete[] StackofPath;
 	delete[] Prev;
 }
+
