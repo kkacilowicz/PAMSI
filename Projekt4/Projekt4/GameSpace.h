@@ -32,6 +32,5 @@ public:
 	void InsertElement(char Element, int Row, int Column);	//dodanie elementu na planszê
 	void ClearSpace();		//czyœci planszê
 	void display();			//wyœwietlanie
-
 };
 

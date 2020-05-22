@@ -11,20 +11,34 @@ int main()
 
     
     GameSpace* GS = new GameSpace(3);
-    Player P('X');
-    int check;
+    Player Player1('X',GS);
+    Player Opponent('O', GS);
+    int check,x,y;
+    int* AIMove;
 
+
+    //Opponent to ja
+    //Player1 to komputer
 
     GS->display();
-    std::cout << std::endl;
-    P.MakeMove(GS, 0, 0);
-    P.MakeMove(GS, 0, 1);
-    P.MakeMove(GS, 0, 2);
-    GS->display();
-   
-   //check= P.CheckScore(GS);
 
-   //std::cout << check << std::endl;
+    while (1)
+    {
+        
+        std::cout << std::endl;
+        std::cin >> x >> y;
+        Player1.MakeMove(x, y);
+        AIMove = Opponent.BestDecision(Player1);
+        Opponent.MakeMove(AIMove[0], AIMove[1]);
+        GS->display();
+
+
+        if (GS->IsSpaceFull()||Opponent.IsWinner()||Player1.IsWinner())
+        {
+            std::cout << Player1.CheckScore(Opponent) << std::endl;
+            return 0;
+        }
+    }
 
 
 
