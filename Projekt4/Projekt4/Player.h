@@ -18,7 +18,7 @@ public:
 	bool DiagonalWin();						//sprawdzenie zwyciêstwa diagonalnego (po przek¹tnych)
 	bool IsWinner();						//ogólny bool, czy wygrana
 	int CheckScore(Player Opponent);		//funkcja heurystyczna badaj¹ca wynik dzia³ania gracza(czy wygra³, przegra³ itd)
-	int MiniMax(Player Opponent, int Row, int Column, int Depth, bool isMaximizer);	//minimax
+	int MiniMax(Player Opponent, int Row, int Column, int RecurenceDepth, int Alpha, int Beta, bool isMaximizer);	//minimax
 	int* BestDecision(Player Opponent);		//podejmowanie decyzji najlepszej i wyznaczanie ruchu dla AI
 };
 

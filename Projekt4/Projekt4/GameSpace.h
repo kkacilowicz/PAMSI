@@ -27,6 +27,7 @@ public:
 		}
 		delete[] Space;
 	}
+	int GetSize() { return Size; }	//mo¿na wy³uskaæ wartoœæ rozmiaru
 	bool IsSpaceFull();		//czy jest mo¿liwe jeszcze wykonanie jakiegoœ ruchu
 	bool IsPossibleMove(int Row, int Column);	//czy jest mo¿liwe wykonanie zadanego ruchu
 	void InsertElement(char Element, int Row, int Column);	//dodanie elementu na planszê
